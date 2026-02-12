@@ -1,19 +1,17 @@
 {
     "mendix_rtr_log": {
-        "title": "Mendix Cloud Foundry access (RTR) log",
+        "title": "Mendix access (RTR) log",
         "regex": {
             "CloudFoundry": {
-                "pattern": "^(?<timestamp>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6})\\s+\\[(?<instance>RTR\/\\d+)\\]\\s+(?<hostname>\\S+)\\s+-\\s+\\[(?<time_received>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{9}Z)\\]\\s+\"(?<verb>[A-Z]+)\\s+(?<path>\\S+)\\s+(?<http_spec>\\S+)\"\\s+(?<status>\\d+)\\s+(?<request_bytes_received>\\d+)\\s+(?<body_bytes_sent>\\d+)(?<msg>.+)"
+                "pattern": "^(?<timestamp>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6})\\s+\\[(?<instance>RTR/\\d+)\\]\\s+(?<hostname>\\S+)\\s+-\\s+\\[(?<time_received>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{9}Z)\\]\\s+\"(?<verb>[A-Z]+)\\s+(?<path>\\S+)\\s+(?<http_spec>\\S+)\"\\s+(?<status>\\d+)\\s+(?<request_size_in_bytes>\\d+)\\s+(?<response_size_in_bytes>\\d+)(?<msg>.+)"
             },
             "Kubernetes": {
-                "pattern": "^(?<timestamp>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6})\\s+\\[nginx\/(?<instance>\\w+)\\]\\s+request\\=\"(?<verb>[A-Z]+)\\s+(?<path>\\S+)\\s+(?<http_spec>[^\"]+)\"\\s+status=\"(?<status>\\d+)(?<msg>.+)"
+                "pattern": "^(?<timestamp>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6})\\s+\\[nginx/(?<instance>\\w+)\\]\\s+request=\"(?<verb>[A-Z]+)\\s+(?<path>\\S+)\\s+(?<http_spec>[^\"]+)\"\\s+status=\"(?<status>\\d+)\"\\s+request_length_in_bytes=\"(?<request_size_in_bytes>\\d+)\"\\s+response_size_in_bytes=\"(?<response_size_in_bytes>\\d+)\"\\s+response_time_in_seconds=\"(?<response_time_in_seconds>[^\"]+)\"\\s+remote_addr=\"(?<remote_addr>[^\"]+)\"\\s+http_x_forwarded_for=\"(?<http_x_forwarded_for>[^\"]+)\"\\s+http_referer=\"(?<http_referer>[^\"]+)\"\\s+http_user_agent=\"(?<http_user_agent>[^\"]+)\""
             },
             "KubernetesError": {
-                "pattern": "^(?<timestamp>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6})\\s+\\[nginx\/(?<instance>\\w+)\\]\\s+\\[error\\]\\s+(?<msg>.+)"
+                "pattern": "^(?<timestamp>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6})\\s+\\[nginx/(?<instance>\\w+)\\]\\s+\\[error\\]\\s+(?<msg>.+)"
             }
-            
         },
-
         "multiline": false,
         "value": {
             "instance": {"kind": "string", "identifier": true},
@@ -23,10 +21,18 @@
             "path": {"kind": "string"},
             "http_spec": {"kind": "string"},
             "status": {"kind": "integer", "identifier": true},
-            "request_bytes_received": {"kind": "integer"},
-            "body_bytes_sent": {"kind":"integer"},
+            "request_size_in_bytes": {"kind": "integer"},
+            "response_size_in_bytes": {"kind":"integer"},
+            "response_time_in_seconds": {"kind":"float"},
+            "remote_addr": {"kind":"string"},
+            "http_x_forwarded_for": {"kind":"string"},
+            "http_referer": {"kind":"string"},
+            "http_user_agent": {"kind":"string"},
             "msg": {"kind": "string"}
         },
+        "timestamp-format": ["%Y-%m-%dT%H:%M:%S.%f"],
+        "timestamp-is-local": false,
+    
         "sample": [
             {
                 "line": "2025-10-06T23:59:26.755228 [RTR/1]  proximuspluscore.mendixcloud.com - [2025-10-06T23:59:26.734808021Z] \"POST /rest/commons/v1/notificationpreferences HTTP/1.1\" 200 202 0 \"-\" \"ProximusPlus/305554 CFNetwork/3860.100.1 Darwin/25.0.0\" \"10.10.11.57:16188\" \"10.10.136.161:61010\" x_forwarded_for:\"2a02:a020:541:5be0:c9e0:5d5b:288a:18ac, 10.10.11.48, 10.10.11.57\" x_forwarded_proto:\"https\" vcap_request_id:\"8f0dfdc9-1e30-4f5f-432b-25f83b59a95b\" response_time:0.020325 gorouter_time:0.000129 app_id:\"645e21ce-c475-453f-adf0-1e151741ef5e\" app_index:\"2\" instance_id:\"fbc9de26-6449-49ce-6387-6c98\" x_cf_routererror:\"-\" x_b3_traceid:\"8f0dfdc91e304f5f432b25f83b59a95b\" x_b3_spanid:\"432b25f83b59a95b\" x_b3_parentspanid:\"-\" b3:\"8f0dfdc91e304f5f432b25f83b59a95b-432b25f83b59a95b\""
@@ -40,7 +46,7 @@
             {
                 "line": "2025-10-06T08:06:29.510474 [nginx/9g7lw]   [error] 15#15: *1382 access forbidden by rule, client: 124.219.162.193, server: _, request: \"GET \/ HTTP/1.1\", host: \"asoko100-accp.mendixcloud.com\""
             }
-        ],
-        "timestamp-format":"%Y-%m-%dT%H:%M:%s.%f"
+        ]
+        
     }
 }

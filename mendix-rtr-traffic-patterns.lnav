@@ -1,0 +1,26 @@
+#
+# @synopsis: mendix-rtr-log-trafic-patterns
+# @description: Investigate traffic patterns
+# 
+
+;SELECT 
+    remote_addr,
+    COUNT(DISTINCT path) AS count_distinct_path,
+    COUNT(*) AS count_requests,
+    
+    -- Count specific status codes or ranges
+    SUM(CASE WHEN status BETWEEN 100 AND 199 THEN 1 ELSE 0 END) AS count_1xx_informational,
+    SUM(CASE WHEN status BETWEEN 200 AND 299 THEN 1 ELSE 0 END) AS count_2xx_successful,
+    SUM(CASE WHEN status BETWEEN 300 AND 399 THEN 1 ELSE 0 END) AS count_3xx_redirect,
+    SUM(CASE WHEN status BETWEEN 400 AND 499 THEN 1 ELSE 0 END) AS count_4xx_client_err,
+    SUM(CASE WHEN status BETWEEN 500 AND 599 THEN 1 ELSE 0 END) AS count_5xx_server_err
+    -- Total requests for context
+    
+FROM 
+    mendix_rtr_log
+GROUP BY 
+    remote_addr
+ORDER BY 
+    count_distinct_path DESC
+
+:write-table-to -

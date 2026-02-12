@@ -1,0 +1,27 @@
+{
+    "mendix_app_log": {
+        "title": "Mendix Datadog log",
+        "regex": {
+            "datadog_npp": {
+                "pattern": "^(?<timestamp>\\w{3}\\s\\d{1,2}\\s\\d{2}:\\d{2}:\\d{2}.\\d{3})\\s(?<host>\\S+)\\s(?<service>\\S+)\\s(?<content>.+)"
+             
+            }
+        },
+        
+        "value": {
+            "level": {"kind": "string"},
+            "instance": {"kind": "string", "identifier": true},
+            "lognode": {"kind": "string", "identifier": true},
+            "msg": {"kind": "string"}
+        },
+        "sample": [
+                        {
+                "line": "Jan 19 08:11:24.345 ip-10-11-3-232.eu-central-1.compute.internal-prod-2-eks mendix-app-manifest-manager [GIN] 2026/01/19 - 08:11:23 | 200 | 19.181247ms | 10.11.3.176 | GET \"/v1/apps/260ba90f-1484-416a-81df-dffaa6984f84/summary\""
+            },
+            {
+                "line": "Jan 19 08:11:25.684 ip-10-11-3-227.eu-central-1.compute.internal-prod-2-eks octomanager [260ba90f-1484-416a-81df-dffaa6984f84 | RequestHandler] Nats response (Success) sent [octo.deployApp.reply], {\"MessageId\":\"4125b7c7-0930-4b5f-8f3c-ff583dae76a5\",\"ReplyToMessageId\":\"c41b9e85-d82d-4dc6-a0a6-4b43daf4d0b9\",\"Data\":{\"DeployAppResponseData\":{\"EnvironmentId\":\"260ba90f-1484-416a-81df-dffaa6984f84\",\"PrimaryEndpoint\":\"prod-1-eu-central-1\",\"State\":\"ACCEPTED\",\"AppState\":\"UNKNOWN\",\"App\":{\"environmentId\":\"260ba90f-1484-416a-81df-dffaa6984f84\",\"name\":\"260ba90f-1484-416a-81df-dffaa6984f84\",\"url\":null,\"profile\":\"mendix-l21-standard\",\"state\":\"STOPPED\",\"endpoint\":\"prod-1-eu-central-1\",\"instances\":0,\"memory\":8192,\"buildPackVersion\":\"NOT_AVAILABLE\",\"additionalServices\":[{\"name\":\"database\",\"serviceId\":\"c55350fe-5bb7-497f-b8ae-1eeee3172f9b\",\"parameters\":{\"allocated_storage\":40,\"availability_zone\":\"eu-central-1b\",\"ca_certificate_identifier\":\"rds-ca-rsa2048-g1\",\"db_identifier\":\"dbw64wbn18ibbr8ap\",\"db_instance_status\":\"available\",\"db_storage_iops\":3000,\"db_storage_throughput\":125,\"engine_version\":\"15.13\",\"instance_class\":\"db.m6g.large\",\"instance_port\":5432,\"last_fetch_time\":\"2026-01-19T08:00:59Z\",\"multi_az\":false,\"option_groups\":[{\"name\":\"default:postgres-15\",\"status\":\"in-sync\"}],\"parameter_group\":\"rdsbroker-prod-prod-2-eu-central-1-postgres15-default\",\"performance_insights\":true,\"secret_id\":\"arn:aws:secretsmanager:eu-central-1:695663192478:secret:dbw64wbn18ibbr8ap_c55350fe5bb7497fb8ae1eeee3172f9b_master_creds-GKQ75Z\",\"subnet_group\":\"rdsbroker-prod-1-eu-central-1\",\"vpc_id\":\"vpc-28c33340\"}},{\"name\":\"storage\",\"serviceId\":\"14f73a71-e183-48b3-9aa0-3a28c5c019a0\",\"parameters\":{\"app_name\":\"260ba90f-1484-416a-81df-dffaa6984f84\",\"region_restricted\":false,\"tenant_id\":\"e13cebbb-659c-40ac-b98a-529b0b65af91\"}},{\"name\":\"backups\",\"serviceId\":\"66c0968d-0ead-4490-9d44-ae9dc0c1a49f\",\"parameters\":{\"app_name\":\"260ba90f-1484-416a-81df-dffaa6984f84\",\"region_restricted\":false,\"tenant_id\":\"e13cebbb-659c-40ac-b98a-529b0b65af91\"}}],\"buildStatus\":null,\"runningInstances\":null,\"disk\":4096,\"leaderLessEnabled\":true}}}}"
+            }
+        ],
+        "timestamp-format":"%Y-%m-%dT%H:%M:%s.%f"
+    }
+}
