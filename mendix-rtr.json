@@ -29,9 +29,7 @@
             "http_referer": {"kind":"string"},
             "http_user_agent": {"kind":"string"},
             "msg": {"kind": "string"}
-        },
-        "timestamp-format": ["%Y-%m-%dT%H:%M:%S.%f"]
-    
+        },    
         "sample": [
             {
                 "line": "2025-10-06T23:59:26.755228 [RTR/1]  proximuspluscore.mendixcloud.com - [2025-10-06T23:59:26.734808021Z] \"POST /rest/commons/v1/notificationpreferences HTTP/1.1\" 200 202 0 \"-\" \"ProximusPlus/305554 CFNetwork/3860.100.1 Darwin/25.0.0\" \"10.10.11.57:16188\" \"10.10.136.161:61010\" x_forwarded_for:\"2a02:a020:541:5be0:c9e0:5d5b:288a:18ac, 10.10.11.48, 10.10.11.57\" x_forwarded_proto:\"https\" vcap_request_id:\"8f0dfdc9-1e30-4f5f-432b-25f83b59a95b\" response_time:0.020325 gorouter_time:0.000129 app_id:\"645e21ce-c475-453f-adf0-1e151741ef5e\" app_index:\"2\" instance_id:\"fbc9de26-6449-49ce-6387-6c98\" x_cf_routererror:\"-\" x_b3_traceid:\"8f0dfdc91e304f5f432b25f83b59a95b\" x_b3_spanid:\"432b25f83b59a95b\" x_b3_parentspanid:\"-\" b3:\"8f0dfdc91e304f5f432b25f83b59a95b-432b25f83b59a95b\""
