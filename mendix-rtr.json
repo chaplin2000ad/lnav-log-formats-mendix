@@ -30,8 +30,7 @@
             "http_user_agent": {"kind":"string"},
             "msg": {"kind": "string"}
         },
-        "timestamp-format": ["%Y-%m-%dT%H:%M:%S.%f"],
-        "timestamp-is-local": false,
+        "timestamp-format": ["%Y-%m-%dT%H:%M:%S.%f"]
     
         "sample": [
             {
