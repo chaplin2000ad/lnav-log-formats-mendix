@@ -1,0 +1,22 @@
+#
+# @synopsis: mendix-app-log-patterns
+# @description: Investigate log patterns
+# 
+
+;SELECT
+    lognode,
+    count(*) as count_lines,
+
+    SUM(CASE WHEN log_level = 'info' THEN 1 ELSE 0 END) as count_info,
+    SUM(CASE WHEN log_level = 'warning' THEN 1 ELSE 0 END) as count_warning,
+    SUM(CASE WHEN log_level = 'error' THEN 1 ELSE 0 END) as count_error,
+    SUM(CASE WHEN log_level = 'critical' THEN 1 ELSE 0 END) as count_critical
+
+FROM
+    mendix_app_log
+GROUP BY
+    lognode
+ORDER BY
+    count_lines DESC
+
+:write-table-to -
